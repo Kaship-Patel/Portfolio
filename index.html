@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    .font-display {
+      font-family: 'Syne', sans-serif;
+    }
+    
+    .font-mono {
+      font-family: 'Space Mono', monospace;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+    }
+    
+    @keyframes slide-up {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .animate-float-delayed {
+      animation: float 6s ease-in-out infinite;
+      animation-delay: -3s;
+    }
+    
+    .animate-pulse-glow {
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+    
+    .animate-slide-up {
+      animation: slide-up 0.8s ease-out forwards;
+    }
+    
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #f093fb 50%, #f5576c 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient-shift 4s ease infinite;
+    }
+    
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .skill-bar {
+      background: linear-gradient(90deg, #667eea, #f093fb);
+      border-radius: 9999px;
+      height: 6px;
+    }
+    
+    .nav-link {
+      position: relative;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #667eea, #f093fb);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+    }
+    
+    .shape-blob {
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-display">
+  <div id="app-wrapper" class="w-full h-full overflow-auto" style="background: #0a0a0f;"><!-- Animated Background Elements -->
+   <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-purple-600/20 shape-blob animate-float animate-pulse-glow blur-3xl"></div>
+    <div class="absolute top-40 right-20 w-96 h-96 bg-pink-500/15 shape-blob animate-float-delayed animate-pulse-glow blur-3xl"></div>
+    <div class="absolute bottom-20 left-1/3 w-80 h-80 bg-blue-500/15 shape-blob animate-float animate-pulse-glow blur-3xl"></div>
+   </div><!-- Navigation -->
+   <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-4">
+    <div class="max-w-6xl mx-auto flex items-center justify-between"><a href="#" class="text-white font-bold text-xl tracking-tight"> <span class="gradient-text">Portfolio</span> </a>
+     <div class="hidden md:flex items-center gap-8"><a href="#about" class="nav-link text-gray-300 hover:text-white transition-colors text-sm tracking-wide">About</a> <a href="#skills" class="nav-link text-gray-300 hover:text-white transition-colors text-sm tracking-wide">Skills</a> <a href="#work" class="nav-link text-gray-300 hover:text-white transition-colors text-sm tracking-wide">Work</a> <a href="#contact" class="nav-link text-gray-300 hover:text-white transition-colors text-sm tracking-wide">Contact</a>
+     </div><button class="md:hidden text-white">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg></button>
+    </div>
+   </nav><!-- Hero Section -->
+   <section class="relative min-h-screen flex items-center justify-center px-6 pt-20">
+    <div class="max-w-4xl mx-auto text-center">
+     <p id="hero-greeting" class="text-purple-400 font-mono text-sm tracking-widest uppercase mb-4 opacity-0 animate-slide-up">Hello, I'm</p>
+     <h1 id="hero-name" class="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white mb-4 opacity-0 animate-slide-up delay-100" style="font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; font-weight: 400;"><span class="gradient-text">Kaship Patel</span></h1>
+     <h2 id="hero-title" class="text-2xl md:text-3xl lg:text-4xl font-medium text-gray-300 mb-8 opacity-0 animate-slide-up delay-200">Aspiring Data Scientist &amp; Student</h2>
+     <p id="hero-description" class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed opacity-0 animate-slide-up delay-300">Passionate about transforming data into actionable insights. I specialize in data visualization and analysis to uncover patterns and drive meaningful decisions. Let's explore data together!</p>
+     <div class="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-slide-up delay-400"><a href="#work" id="cta-button" class="btn-primary px-8 py-4 rounded-full text-white font-semibold tracking-wide"> View My Projects </a> <a href="#contact" class="px-8 py-4 rounded-full border border-gray-600 text-white font-semibold tracking-wide hover:bg-white/5 transition-all"> Get In Touch </a>
+     </div><!-- Scroll Indicator -->
+     <div class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0 animate-slide-up delay-500">
+      <div class="w-6 h-10 border-2 border-gray-600 rounded-full flex justify-center pt-2">
+       <div class="w-1 h-3 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full animate-bounce"></div>
+      </div>
+     </div>
+    </div>
+   </section><!-- About Section -->
+   <section id="about" class="relative py-32 px-6">
+    <div class="max-w-6xl mx-auto">
+     <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div class="relative">
+       <div class="glass-card rounded-3xl p-2">
+        <div class="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-purple-600/30 to-pink-500/30 flex items-center justify-center">
+         <svg class="w-48 h-48 text-white/20" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+         </svg>
+        </div>
+       </div>
+       <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl -z-10 blur-2xl opacity-50"></div>
+      </div>
+      <div>
+       <p class="text-purple-400 font-mono text-sm tracking-widest uppercase mb-4">Get To Know Me</p>
+       <h2 id="about-title" class="text-4xl md:text-5xl font-bold text-white mb-6">About Me</h2>
+       <p id="about-text" class="text-gray-400 text-lg leading-relaxed mb-8">I'm a student driven by curiosity and a passion for uncovering insights hidden in data. With expertise in Python, data visualization, and analysis, I'm on my journey to becoming a skilled Data Scientist. I also explore cross-platform development with Flutter. I love solving real-world problems through data-driven approaches and building tools that make complex information accessible.</p>
+       <div class="flex gap-4">
+        <div class="glass-card rounded-2xl px-6 py-4 text-center">
+         <p class="text-3xl font-bold gradient-text">10+</p>
+         <p class="text-gray-500 text-sm">Projects</p>
+        </div>
+        <div class="glass-card rounded-2xl px-6 py-4 text-center">
+         <p class="text-3xl font-bold gradient-text">5+</p>
+         <p class="text-gray-500 text-sm">Skills</p>
+        </div>
+        <div class="glass-card rounded-2xl px-6 py-4 text-center">
+         <p class="text-3xl font-bold gradient-text">2+</p>
+         <p class="text-gray-500 text-sm">Years Learning</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Skills Section -->
+   <section id="skills" class="relative py-32 px-6">
+    <div class="max-w-6xl mx-auto">
+     <div class="text-center mb-16">
+      <p class="text-purple-400 font-mono text-sm tracking-widest uppercase mb-4">What I Do</p>
+      <h2 id="skills-title" class="text-4xl md:text-5xl font-bold text-white">My Skills</h2>
+     </div>
+     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"><!-- Skill Card 1 -->
+      <div class="glass-card rounded-3xl p-8 hover:bg-white/5 transition-all group">
+       <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-white mb-3">Data Visualization</h3>
+       <p class="text-gray-400 mb-6">Creating compelling visual stories from complex datasets using modern tools.</p>
+       <div class="space-y-3">
+        <div>
+         <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">Matplotlib &amp; Seaborn</span> <span class="text-blue-400">90%</span>
+         </div>
+         <div class="w-full bg-gray-800 rounded-full h-1.5">
+          <div class="skill-bar" style="width: 90%; background: linear-gradient(90deg, #3b82f6, #06b6d4);"></div>
+         </div>
+        </div>
+        <div>
+         <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">Tableau &amp; Power BI</span> <span class="text-blue-400">85%</span>
+         </div>
+         <div class="w-full bg-gray-800 rounded-full h-1.5">
+          <div class="skill-bar" style="width: 85%; background: linear-gradient(90deg, #3b82f6, #06b6d4);"></div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Skill Card 2 -->
+      <div class="glass-card rounded-3xl p-8 hover:bg-white/5 transition-all group">
+       <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-white mb-3">Data Analysis</h3>
+       <p class="text-gray-400 mb-6">Extracting meaningful patterns and insights from large datasets.</p>
+       <div class="space-y-3">
+        <div>
+         <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">Pandas &amp; NumPy</span> <span class="text-purple-400">92%</span>
+         </div>
+         <div class="w-full bg-gray-800 rounded-full h-1.5">
+          <div class="skill-bar" style="width: 92%;"></div>
+         </div>
+        </div>
+        <div>
+         <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">Statistical Analysis</span> <span class="text-purple-400">88%</span>
+         </div>
+         <div class="w-full bg-gray-800 rounded-full h-1.5">
+          <div class="skill-bar" style="width: 88%;"></div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Skill Card 3 -->
+      <div class="glass-card rounded-3xl p-8 hover:bg-white/5 transition-all group">
+       <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-white mb-3">Python Programming</h3>
+       <p class="text-gray-400 mb-6">Building efficient data pipelines and machine learning models.</p>
+       <div class="space-y-3">
+        <div>
+         <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">Python Core</span> <span class="text-yellow-400">94%</span>
+         </div>
+         <div class="w-full bg-gray-800 rounded-full h-1.5">
+          <div class="skill-bar" style="width: 94%; background: linear-gradient(90deg, #eab308, #f97316);"></div>
+         </div>
+        </div>
+        <div>
+         <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">ML Libraries</span> <span class="text-yellow-400">82%</span>
+         </div>
+         <div class="w-full bg-gray-800 rounded-full h-1.5">
+          <div class="skill-bar" style="width: 82%; background: linear-gradient(90deg, #eab308, #f97316);"></div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Skill Card 4 -->
+      <div class="glass-card rounded-3xl p-8 hover:bg-white/5 transition-all group">
+       <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 20h8a2 2 0 002-2V6a2 2 0 00-2-2H8a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-white mb-3">Flutter Development</h3>
+       <p class="text-gray-400 mb-6">Creating cross-platform mobile applications with beautiful UIs.</p>
+       <div class="space-y-3">
+        <div>
+         <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">Flutter &amp; Dart</span> <span class="text-green-400">85%</span>
+         </div>
+         <div class="w-full bg-gray-800 rounded-full h-1.5">
+          <div class="skill-bar" style="width: 85%; background: linear-gradient(90deg, #22c55e, #14b8a6);"></div>
+         </div>
+        </div>
+        <div>
+         <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">UI/UX Design</span> <span class="text-green-400">80%</span>
+         </div>
+         <div class="w-full bg-gray-800 rounded-full h-1.5">
+          <div class="skill-bar" style="width: 80%; background: linear-gradient(90deg, #22c55e, #14b8a6);"></div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Work Section Preview -->
+   <section id="work" class="relative py-32 px-6">
+    <div class="max-w-6xl mx-auto">
+     <div class="text-center mb-16">
+      <p class="text-purple-400 font-mono text-sm tracking-widest uppercase mb-4">My Portfolio</p>
+      <h2 class="text-4xl md:text-5xl font-bold text-white">Featured Work</h2>
+     </div>
+     <div class="grid md:grid-cols-2 gap-8"><!-- Project Card 1 -->
+      <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer">
+       <div class="aspect-video bg-gradient-to-br from-purple-900/50 to-pink-900/50 relative overflow-hidden">
+        <div class="absolute inset-0 flex items-center justify-center"><span class="text-6xl">📊</span>
+        </div>
+        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><span class="text-white font-semibold">View Project →</span>
+        </div>
+       </div>
+       <div class="p-6">
+        <h3 class="text-xl font-bold text-white mb-2">Sales Analytics Dashboard</h3>
+        <p class="text-gray-400 text-sm">Data Visualization • Python • Tableau</p>
+       </div>
+      </div><!-- Project Card 2 -->
+      <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer">
+       <div class="aspect-video bg-gradient-to-br from-blue-900/50 to-cyan-900/50 relative overflow-hidden">
+        <div class="absolute inset-0 flex items-center justify-center"><span class="text-6xl">🔍</span>
+        </div>
+        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><span class="text-white font-semibold">View Project →</span>
+        </div>
+       </div>
+       <div class="p-6">
+        <h3 class="text-xl font-bold text-white mb-2">ML Classification Model</h3>
+        <p class="text-gray-400 text-sm">Data Analysis • Machine Learning • Python</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Contact Section -->
+   <section id="contact" class="relative py-32 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+     <p class="text-purple-400 font-mono text-sm tracking-widest uppercase mb-4">Let's Connect</p>
+     <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Get In Touch</h2>
+     <p class="text-gray-400 text-lg mb-12 max-w-2xl mx-auto">Have a project in mind or just want to chat? I'd love to hear from you. Let's create something amazing together.</p><a href="mailto:hello@example.com" class="btn-primary inline-flex items-center gap-3 px-10 py-5 rounded-full text-white font-semibold text-lg">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg> Say Hello </a> <!-- Social Links -->
+     <div class="flex justify-center gap-6 mt-12"><a href="#" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all">
+       <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+       </svg></a> <a href="#" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all">
+       <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+       </svg></a> <a href="#" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all">
+       <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+       </svg></a>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="py-8 px-6 border-t border-gray-800/50">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+     <p class="text-gray-500 text-sm">© 2024 Kaship Patel. All rights reserved.</p>
+     <p class="text-gray-600 text-sm font-mono">Built with ❤️ for Data Science</p>
+    </div>
+   </footer>
+  </div>
+  <script>
+    const defaultConfig = {
+      hero_greeting: "Hello, I'm",
+      hero_name: "Kaship Patel",
+      hero_title: "Aspiring Data Scientist & Student",
+      hero_description: "Passionate about transforming data into actionable insights. I specialize in data visualization and analysis to uncover patterns and drive meaningful decisions. Let's explore data together!",
+      cta_button_text: "View My Projects",
+      about_title: "About Me",
+      about_text: "I'm a student driven by curiosity and a passion for uncovering insights hidden in data. With expertise in Python, data visualization, and analysis, I'm on my journey to becoming a skilled Data Scientist. I also explore cross-platform development with Flutter. I love solving real-world problems through data-driven approaches and building tools that make complex information accessible.",
+      skills_title: "My Skills",
+      primary_color: "#667eea",
+      secondary_color: "#f093fb",
+      background_color: "#0a0a0f",
+      text_color: "#ffffff",
+      accent_color: "#a855f7",
+      font_family: "Syne",
+      font_size: 16
+    };
+    
+    let config = { ...defaultConfig };
+    
+    async function onConfigChange(cfg) {
+      config = { ...defaultConfig, ...cfg };
+      
+      // Update hero section
+      document.getElementById('hero-greeting').textContent = config.hero_greeting || defaultConfig.hero_greeting;
+      document.getElementById('hero-name').innerHTML = `<span class="gradient-text">${config.hero_name || defaultConfig.hero_name}</span>`;
+      document.getElementById('hero-title').textContent = config.hero_title || defaultConfig.hero_title;
+      document.getElementById('hero-description').textContent = config.hero_description || defaultConfig.hero_description;
+      document.getElementById('cta-button').textContent = config.cta_button_text || defaultConfig.cta_button_text;
+      
+      // Update about section
+      document.getElementById('about-title').textContent = config.about_title || defaultConfig.about_title;
+      document.getElementById('about-text').textContent = config.about_text || defaultConfig.about_text;
+      
+      // Update skills section
+      document.getElementById('skills-title').textContent = config.skills_title || defaultConfig.skills_title;
+      
+      // Apply colors
+      const bgColor = config.background_color || defaultConfig.background_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      
+      document.getElementById('app-wrapper').style.background = bgColor;
+      document.querySelectorAll('h1, h2, h3').forEach(el => {
+        if (!el.classList.contains('gradient-text') && !el.querySelector('.gradient-text')) {
+          el.style.color = textColor;
+        }
+      });
+      
+      // Apply font
+      const fontFamily = config.font_family || defaultConfig.font_family;
+      const baseSize = config.font_size || defaultConfig.font_size;
+      
+      document.body.style.fontFamily = `${fontFamily}, sans-serif`;
+      document.querySelectorAll('h1').forEach(el => el.style.fontSize = `${baseSize * 4}px`);
+      document.querySelectorAll('h2').forEach(el => el.style.fontSize = `${baseSize * 2.5}px`);
+      document.querySelectorAll('h3').forEach(el => el.style.fontSize = `${baseSize * 1.25}px`);
+      document.querySelectorAll('p').forEach(el => {
+        if (!el.classList.contains('text-sm') && !el.classList.contains('text-xs')) {
+          el.style.fontSize = `${baseSize}px`;
+        }
+      });
+    }
+    
+    function mapToCapabilities(cfg) {
+      return {
+        recolorables: [
+          {
+            get: () => cfg.background_color || defaultConfig.background_color,
+            set: (value) => { cfg.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
+          },
+          {
+            get: () => cfg.text_color || defaultConfig.text_color,
+            set: (value) => { cfg.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
+          },
+          {
+            get: () => cfg.primary_color || defaultConfig.primary_color,
+            set: (value) => { cfg.primary_color = value; window.elementSdk.setConfig({ primary_color: value }); }
+          },
+          {
+            get: () => cfg.accent_color || defaultConfig.accent_color,
+            set: (value) => { cfg.accent_color = value; window.elementSdk.setConfig({ accent_color: value }); }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => cfg.font_family || defaultConfig.font_family,
+          set: (value) => { cfg.font_family = value; window.elementSdk.setConfig({ font_family: value }); }
+        },
+        fontSizeable: {
+          get: () => cfg.font_size || defaultConfig.font_size,
+          set: (value) => { cfg.font_size = value; window.elementSdk.setConfig({ font_size: value }); }
+        }
+      };
+    }
+    
+    function mapToEditPanelValues(cfg) {
+      return new Map([
+        ["hero_greeting", cfg.hero_greeting || defaultConfig.hero_greeting],
+        ["hero_name", cfg.hero_name || defaultConfig.hero_name],
+        ["hero_title", cfg.hero_title || defaultConfig.hero_title],
+        ["hero_description", cfg.hero_description || defaultConfig.hero_description],
+        ["cta_button_text", cfg.cta_button_text || defaultConfig.cta_button_text],
+        ["about_title", cfg.about_title || defaultConfig.about_title],
+        ["about_text", cfg.about_text || defaultConfig.about_text],
+        ["skills_title", cfg.skills_title || defaultConfig.skills_title]
+      ]);
+    }
+    
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    } else {
+      onConfigChange(defaultConfig);
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c937477b154205b',t:'MTc3MDMwNTQ4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
